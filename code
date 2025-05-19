@@ -1,0 +1,62 @@
+// Interface Payable
+interface Payable {
+    double getPayableAmount();
+}
+
+// Kelas Invoice yang mengimplementasikan Payable
+class Invoice implements Payable {
+    private String productName;
+    private int quantity;
+    private int pricePerItem;
+
+    public Invoice(String productName, int quantity, int pricePerItem) {
+        this.productName = productName;
+        this.quantity = quantity;
+        this.pricePerItem = pricePerItem;
+    }
+
+    @Override
+    public double getPayableAmount() {
+        return quantity * pricePerItem;
+    }
+
+    public String toString() {
+        return productName + " x" + quantity + " @ " + pricePerItem + " = " + getPayableAmount();
+    }
+}
+
+// Kelas Employee yang mengimplementasikan Payable
+class Employee implements Payable {
+    private int registrationNumber;
+    private String name;
+    private int salaryPerMonth;
+    private Invoice[] invoices;
+
+    public Employee(int registrationNumber, String name, int salaryPerMonth, Invoice[] invoices) {
+        this.registrationNumber = registrationNumber;
+        this.name = name;
+        this.salaryPerMonth = salaryPerMonth;
+        this.invoices = invoices;
+    }
+
+    @Override
+    public double getPayableAmount() {
+        double totalBelanja = 0;
+        for (Invoice invoice : invoices) {
+            totalBelanja += invoice.getPayableAmount();
+        }
+        return salaryPerMonth - totalBelanja;
+    }
+
+    public void printDetail() {
+        System.out.println("===== Data Karyawan =====");
+        System.out.println("NIP       : " + registrationNumber);
+        System.out.println("Nama      : " + name);
+        System.out.println("Gaji Bulanan : " + salaryPerMonth);
+        System.out.println("----- Daftar Belanja -----");
+        for (Invoice invoice : invoices) {
+            System.out.println(invoice);
+        }
+        System.out.println("Total Gaji Setelah Potong Belanja: " + getPayableAmount());
+    }
+}
