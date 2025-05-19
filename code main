@@ -1,0 +1,12 @@
+public class PayableMain {
+    public static void main(String[] args) {
+        Invoice[] belanjaan = {
+            new Invoice("Pulpen", 5, 2000),
+            new Invoice("Buku", 2, 15000),
+            new Invoice("Penggaris", 1, 5000)
+        };
+
+        Employee emp = new Employee(101, "Budi Santoso", 2000000, belanjaan);
+        emp.printDetail();
+    }
+}
